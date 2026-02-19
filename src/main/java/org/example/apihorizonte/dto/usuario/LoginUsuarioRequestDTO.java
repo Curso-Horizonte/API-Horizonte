@@ -3,7 +3,11 @@ package org.example.apihorizonte.dto.usuario;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
+import lombok.Getter;
+import lombok.Setter;
 
+@Getter
+@Setter
 public class LoginUsuarioRequestDTO {
     @NotNull(message = "O email não pode ser nulo")
     @Size(min = 5, message = "O email deve ter no mínimo 5 caracteres")

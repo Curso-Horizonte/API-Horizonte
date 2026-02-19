@@ -8,8 +8,7 @@ import org.example.apihorizonte.repository.UsuarioRepository;
 import org.springframework.stereotype.Service;
 
 import java.sql.Timestamp;
-import java.util.ArrayList;
-import java.util.List;
+
 
 @Service
 public class UsuarioService {
@@ -30,9 +29,9 @@ public class UsuarioService {
         usuario.setCpf(dto.getCpf());
         usuario.setEmail(dto.getEmail());
         usuario.setSenha(dto.getSenha());
-        usuario.setRole_id(roleId);
-        usuario.setStatus_id(1);
-        usuario.setCriado_em(new Timestamp(System.currentTimeMillis()));
+        usuario.setRoleId(roleId);
+        usuario.setStatusId(1);
+        usuario.setCriadoEm(new Timestamp(System.currentTimeMillis()));
 
         return objectMapper.convertValue(usuarioRepository.save(usuario), UsuarioResponseDTO.class);
     }

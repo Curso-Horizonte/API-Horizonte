@@ -14,16 +14,19 @@ public class Usuario {
     private String cpf;
     private String email;
     private String senha;
-    private long role_id;
-    private long status_id;
-    private Timestamp criado_em;
+    @Column(name = "role_id")
+    private long roleId;
+    @Column(name = "status_id")
+    private long statusId;
+    @Column(name = "criado_em")
+    private Timestamp criadoEm;
 
-    public Timestamp getCriado_em() {
-        return criado_em;
+    public Timestamp getCriadoEm() {
+        return criadoEm;
     }
 
-    public void setCriado_em(Timestamp criado_em) {
-        this.criado_em = criado_em;
+    public void setCriadoEm(Timestamp criadoEm) {
+        this.criadoEm = criadoEm;
     }
 
     public String getEmail() {
@@ -62,12 +65,12 @@ public class Usuario {
         this.cpf = cpf;
     }
 
-    public long getRole_id() {
-        return role_id;
+    public long getRoleId() {
+        return roleId;
     }
 
-    public void setRole_id(long role_id) {
-        this.role_id = role_id;
+    public void setRoleId(long roleId) {
+        this.roleId = roleId;
     }
 
     public String getSenha() {
@@ -78,11 +81,11 @@ public class Usuario {
         this.senha = senha;
     }
 
-    public long getStatus_id() {
-        return status_id;
+    public long getStatusId() {
+        return statusId;
     }
 
-    public void setStatus_id(long status_id) {
-        this.status_id = status_id;
+    public void setStatusId(long statusId) {
+        this.statusId = statusId;
     }
 }
