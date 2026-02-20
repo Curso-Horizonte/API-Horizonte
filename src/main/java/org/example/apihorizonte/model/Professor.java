@@ -8,10 +8,10 @@ public class Professor {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "usuario_id")
     private Usuario usuario;
-    private String registro_funcional;
+    private String registroFuncional;
 
     public Usuario getUsuario() {
         return usuario;
@@ -21,11 +21,11 @@ public class Professor {
         this.usuario = usuario;
     }
 
-    public String getRegistro_funcional() {
-        return registro_funcional;
+    public String getRegistroFuncional() {
+        return registroFuncional;
     }
 
-    public void setRegistro_funcional(String registro_funcional) {
-        this.registro_funcional = registro_funcional;
+    public void setRegistroFuncional(String registroFuncional) {
+        this.registroFuncional = registroFuncional;
     }
 }

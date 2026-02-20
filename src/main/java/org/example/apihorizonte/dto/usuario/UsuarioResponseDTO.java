@@ -9,6 +9,7 @@ import java.sql.Timestamp;
 @Setter
 public class UsuarioResponseDTO {
     private String nome;
+    private String sobrenome;
     private String email;
     private long roleId;
     private long statusId;

@@ -21,19 +21,20 @@ public class UsuarioService {
         this.objectMapper = objectMapper;
     }
 
-    public UsuarioResponseDTO addUsuario(UsuarioRequestDTO dto, long roleId) {
+    public Usuario addUsuario(UsuarioRequestDTO usuarioRequestDTO, long roleId) {
         Usuario usuario = new Usuario();
 
-        usuario.setNome(dto.getNome());
-        usuario.setSobrenome(dto.getSobrenome());
-        usuario.setCpf(dto.getCpf());
-        usuario.setEmail(dto.getEmail());
-        usuario.setSenha(dto.getSenha());
+        usuario.setNome(usuarioRequestDTO.getNome());
+        usuario.setSobrenome(usuarioRequestDTO.getSobrenome());
+        usuario.setCpf(usuarioRequestDTO.getCpf());
+        usuario.setEmail(usuarioRequestDTO.getEmail());
+        usuario.setSenha(usuarioRequestDTO.getSenha());
         usuario.setRoleId(roleId);
         usuario.setStatusId(1);
         usuario.setCriadoEm(new Timestamp(System.currentTimeMillis()));
 
-        return objectMapper.convertValue(usuarioRepository.save(usuario), UsuarioResponseDTO.class);
+        return usuarioRepository.save(usuario);
     }
+
 
 }
