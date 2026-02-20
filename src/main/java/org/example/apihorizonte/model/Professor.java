@@ -1,7 +1,11 @@
 package org.example.apihorizonte.model;
 
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
 
+@Getter
+@Setter
 @Entity
 @Table(name = "professor")
 public class Professor {
@@ -13,19 +17,4 @@ public class Professor {
     private Usuario usuario;
     private String registroFuncional;
 
-    public Usuario getUsuario() {
-        return usuario;
-    }
-
-    public void setUsuario(Usuario usuario) {
-        this.usuario = usuario;
-    }
-
-    public String getRegistroFuncional() {
-        return registroFuncional;
-    }
-
-    public void setRegistroFuncional(String registroFuncional) {
-        this.registroFuncional = registroFuncional;
-    }
 }
