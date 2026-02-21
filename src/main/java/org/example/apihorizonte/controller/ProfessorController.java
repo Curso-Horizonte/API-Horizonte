@@ -12,15 +12,12 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+@AllArgsConstructor
 @CrossOrigin("*")
 @RestController
 @RequestMapping("/api/professor")
 public class ProfessorController {
     private final ProfessorService professorService;
-
-    public ProfessorController(ProfessorService professorService) {
-        this.professorService = professorService;
-    }
 
     @GetMapping("/get")
     public List<ProfessorResponseDTO> getProfessores() {
@@ -33,7 +30,7 @@ public class ProfessorController {
     }
 
     @PatchMapping("/update/{id}")
-    public ResponseEntity<ProfessorResponseDTO> atualizarProdutoParcial(@PathVariable Long id, @Validated({OnPatch.class}) @RequestBody ProfessorRequestDTO professorRequestDTO){
+    public ResponseEntity<ProfessorResponseDTO> atualizarProfessorParcial(@PathVariable Long id, @Validated({OnPatch.class}) @RequestBody ProfessorRequestDTO professorRequestDTO){
         return ResponseEntity.ok(professorService.updatePrfessor(id, professorRequestDTO));
     }
 
