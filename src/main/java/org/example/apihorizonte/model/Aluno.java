@@ -1,7 +1,11 @@
 package org.example.apihorizonte.model;
 
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
 
+@Getter
+@Setter
 @Entity
 @Table(name = "aluno")
 public class Aluno {
@@ -12,20 +16,4 @@ public class Aluno {
     @JoinColumn(name = "usuario_id")
     private Usuario usuario;
     private String matricula;
-
-    public Usuario getUsuario() {
-        return usuario;
-    }
-
-    public void setUsuario(Usuario usuario) {
-        this.usuario = usuario;
-    }
-
-    public String getMatricula() {
-        return matricula;
-    }
-
-    public void setMatricula(String matricula) {
-        this.matricula = matricula;
-    }
 }

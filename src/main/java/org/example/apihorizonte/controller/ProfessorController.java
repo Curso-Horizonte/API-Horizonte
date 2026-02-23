@@ -1,8 +1,10 @@
 package org.example.apihorizonte.controller;
 
 import jakarta.validation.groups.Default;
+import lombok.AllArgsConstructor;
 import org.example.apihorizonte.dto.professor.ProfessorRequestDTO;
 import org.example.apihorizonte.dto.professor.ProfessorResponseDTO;
+import org.example.apihorizonte.openapi.ProfessorOpenAPI;
 import org.example.apihorizonte.service.ProfessorService;
 import org.example.apihorizonte.validation.OnCreate;
 import org.example.apihorizonte.validation.OnPatch;
@@ -16,7 +18,7 @@ import java.util.List;
 @CrossOrigin("*")
 @RestController
 @RequestMapping("/api/professor")
-public class ProfessorController {
+public class ProfessorController{
     private final ProfessorService professorService;
 
     @GetMapping("/get")
@@ -30,8 +32,8 @@ public class ProfessorController {
     }
 
     @PatchMapping("/update/{id}")
-    public ResponseEntity<ProfessorResponseDTO> atualizarProfessorParcial(@PathVariable Long id, @Validated({OnPatch.class}) @RequestBody ProfessorRequestDTO professorRequestDTO){
-        return ResponseEntity.ok(professorService.updatePrfessor(id, professorRequestDTO));
+    public ResponseEntity<ProfessorResponseDTO> updateProfessor(@PathVariable Long id, @Validated({OnPatch.class}) @RequestBody ProfessorRequestDTO professorRequestDTO){
+        return ResponseEntity.ok(professorService.updateProfessor(id, professorRequestDTO));
     }
 
     @DeleteMapping("/remove/{id}")
