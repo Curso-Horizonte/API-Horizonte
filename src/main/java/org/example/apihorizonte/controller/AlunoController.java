@@ -32,7 +32,7 @@ public class AlunoController {
     }
 
     @PatchMapping("/update/{id}")
-    public ResponseEntity<AlunoResponseDTO> atualizarAlunoParcial(@PathVariable Long id, @Validated({OnPatch.class}) @RequestBody AlunoRequestDTO alunoRequestDTO){
+    public ResponseEntity<AlunoResponseDTO> updateAluno(@PathVariable Long id, @Validated({OnPatch.class}) @RequestBody AlunoRequestDTO alunoRequestDTO){
         return ResponseEntity.ok(alunoService.updateAluno(id, alunoRequestDTO));
     }
 

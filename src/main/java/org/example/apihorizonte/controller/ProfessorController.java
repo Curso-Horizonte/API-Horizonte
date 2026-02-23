@@ -18,7 +18,7 @@ import java.util.List;
 @CrossOrigin("*")
 @RestController
 @RequestMapping("/api/professor")
-public class ProfessorController implements ProfessorOpenAPI {
+public class ProfessorController{
     private final ProfessorService professorService;
 
     @GetMapping("/get")
@@ -32,7 +32,7 @@ public class ProfessorController implements ProfessorOpenAPI {
     }
 
     @PatchMapping("/update/{id}")
-    public ResponseEntity<ProfessorResponseDTO> atualizarProfessorParcial(@PathVariable Long id, @Validated({OnPatch.class}) @RequestBody ProfessorRequestDTO professorRequestDTO){
+    public ResponseEntity<ProfessorResponseDTO> updateProfessor(@PathVariable Long id, @Validated({OnPatch.class}) @RequestBody ProfessorRequestDTO professorRequestDTO){
         return ResponseEntity.ok(professorService.updateProfessor(id, professorRequestDTO));
     }
 
