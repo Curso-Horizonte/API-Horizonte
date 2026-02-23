@@ -15,6 +15,7 @@ public class UsuarioResponseDTO {
     private String nome;
     private String sobrenome;
     private String email;
+    private String cpf;
     private long roleId;
     private long statusId;
     private Timestamp criadoEm;

@@ -2,6 +2,7 @@ package org.example.apihorizonte.service;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.persistence.EntityNotFoundException;
+import lombok.AllArgsConstructor;
 import org.example.apihorizonte.dto.professor.ProfessorRequestDTO;
 import org.example.apihorizonte.dto.professor.ProfessorResponseDTO;
 import org.example.apihorizonte.dto.usuario.UsuarioRequestDTO;
@@ -16,19 +17,13 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+@AllArgsConstructor
 @Service
 public class ProfessorService {
     final ProfessorRepository professorRepository;
     final UsuarioService usuarioService;
     final UsuarioRepository usuarioRepository;
     final ObjectMapper objectMapper;
-
-    public ProfessorService(ProfessorRepository professorRepository, UsuarioService usuarioService, UsuarioRepository usuarioRepository, ObjectMapper objectMapper) {
-        this.professorRepository = professorRepository;
-        this.usuarioService = usuarioService;
-        this.usuarioRepository = usuarioRepository;
-        this.objectMapper = objectMapper;
-    }
 
     public List<ProfessorResponseDTO> getAllProfessores() {
         List<Professor> professors = professorRepository.findAll();
@@ -56,7 +51,7 @@ public class ProfessorService {
         return objectMapper.convertValue(professor, ProfessorResponseDTO.class);
     }
 
-    public ProfessorResponseDTO updatePrfessor(Long id, ProfessorRequestDTO professorRequestDTO) {
+    public ProfessorResponseDTO updateProfessor(Long id, ProfessorRequestDTO professorRequestDTO) {
         Professor professor = professorRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("Professor não encontrado"));
 
@@ -69,21 +64,7 @@ public class ProfessorService {
         }
 
         if (professorRequestDTO.getUsuario() != null) {
-            Usuario usuario = professor.getUsuario();
-            UsuarioRequestDTO usuarioRequestDTO = professorRequestDTO.getUsuario();
-
-            if (usuarioRequestDTO.getNome() != null && !usuarioRequestDTO.getNome().isBlank()) {
-                usuario.setNome(usuarioRequestDTO.getNome());
-            }
-            if (usuarioRequestDTO.getSobrenome() != null && !usuarioRequestDTO.getSobrenome().isBlank()) {
-                usuario.setSobrenome(usuarioRequestDTO.getSobrenome());
-            }
-            if (usuarioRequestDTO.getCpf() != null) {
-                usuario.setCpf(usuarioRequestDTO.getCpf());
-            }
-            if (usuarioRequestDTO.getEmail() != null) {
-                usuario.setEmail(usuarioRequestDTO.getEmail());
-            }
+            usuarioService.updateUsuario(professor.getUsuario(), professorRequestDTO.getUsuario());
         }
 
 
