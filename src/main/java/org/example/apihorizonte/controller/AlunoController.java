@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import org.example.apihorizonte.dto.aluno.AlunoResponseDTO;
 import org.example.apihorizonte.dto.aluno.AlunoRequestDTO;
 import org.example.apihorizonte.dto.aluno.AlunoResponseDTO;
+import org.example.apihorizonte.openapi.AlunoOpenAPI;
 import org.example.apihorizonte.service.AlunoService;
 import org.example.apihorizonte.validation.OnCreate;
 import org.example.apihorizonte.validation.OnPatch;
@@ -18,7 +19,7 @@ import java.util.List;
 @CrossOrigin("*")
 @RestController
 @RequestMapping("/api/aluno")
-public class AlunoController {
+public class AlunoController implements AlunoOpenAPI {
     private final AlunoService alunoService;
 
     @GetMapping("/get")
