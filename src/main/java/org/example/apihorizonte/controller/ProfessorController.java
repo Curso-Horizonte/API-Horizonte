@@ -18,7 +18,7 @@ import java.util.List;
 @CrossOrigin("*")
 @RestController
 @RequestMapping("/api/professor")
-public class ProfessorController{
+public class ProfessorController implements ProfessorOpenAPI {
     private final ProfessorService professorService;
 
     @GetMapping("/get")

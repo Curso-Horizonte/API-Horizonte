@@ -11,7 +11,7 @@ import org.example.apihorizonte.model.Usuario;
 @AllArgsConstructor
 @NoArgsConstructor
 public class ProfessorResponseDTO {
-
+    private Long id;
     private UsuarioResponseDTO usuario;
     private String registroFuncional;
 }

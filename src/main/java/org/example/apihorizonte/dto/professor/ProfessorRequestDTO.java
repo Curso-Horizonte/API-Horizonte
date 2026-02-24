@@ -13,7 +13,6 @@ import java.time.LocalDate;
 public class ProfessorRequestDTO {
     @NotNull(message = "É obrigatório informar o usuário", groups = OnCreate.class)
     private UsuarioRequestDTO usuario;
-    @NotNull(message = "É obrigatório informar o registro funcionaç", groups = OnCreate.class)
-//    @NotBlank(message = "O registro funcional não pode ser vazio")
+    @NotNull(message = "É obrigatório informar o registro funcional", groups = OnCreate.class)
     private String registroFuncional;
 }
