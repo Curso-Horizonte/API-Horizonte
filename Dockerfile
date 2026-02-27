@@ -8,7 +8,7 @@ COPY src ./src
 
 RUN mvn clean package -DskipTests -Dproject.build.sourceEncoding=UTF-8
 
-FROM openjdk:21-jdk-slim
+FROM eclipse-temurin:21-jre-jammy
 WORKDIR /app
 
 COPY --from=build /app/target/API-Fluxar-0.0.1-SNAPSHOT.jar app.jar
