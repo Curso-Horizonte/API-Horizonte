@@ -11,7 +11,7 @@ RUN mvn clean package -DskipTests -Dproject.build.sourceEncoding=UTF-8
 FROM eclipse-temurin:21-jre-jammy
 WORKDIR /app
 
-COPY --from=build /app/target/API-Fluxar-0.0.1-SNAPSHOT.jar app.jar
+COPY --from=build /app/target/API-Horizonte-0.0.1-SNAPSHOT.jar app.jar
 
 ENV JAVA_TOOL_OPTIONS="-Dfile.encoding=UTF-8"
 
