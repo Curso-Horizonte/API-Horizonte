@@ -28,8 +28,4 @@ public class UsuarioRequestDTO {
     @Size(min = 5, message = "O email deve ter no mínimo 5 caracteres", groups = {OnCreate.class, OnPatch.class})
     private String email;
 
-    @NotNull(message = "A senha não pode ser nula", groups = {OnCreate.class})
-    @NotBlank(message = "A senha não pode ser em branco", groups = {OnCreate.class})
-    @Size(min = 6, max = 20, message = "A senha deve ter de 6 a 20 caracteres", groups = {OnCreate.class})
-    private String senha;
 }

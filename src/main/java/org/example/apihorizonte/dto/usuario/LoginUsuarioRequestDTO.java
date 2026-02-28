@@ -15,7 +15,7 @@ public class LoginUsuarioRequestDTO {
     private String email;
 
     @NotNull(message = "A senha não pode ser nula")
-    @Size(min = 8, max = 20, message = "A senha deve ter entre 6 à 20 caracteres")
+    @Size(min = 6, max = 20, message = "A senha deve ter de 6 à 20 caracteres")
     @NotBlank(message = "A senha não pode ser em branco")
     private String senha;
 }
