@@ -1,9 +1,11 @@
 package org.example.apihorizonte.service;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import lombok.AllArgsConstructor;
+import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.example.apihorizonte.dto.usuario.*;
+import org.example.apihorizonte.exception.IncorrectPasswordeException;
+import org.example.apihorizonte.exception.InvalidPasswordException;
 import org.example.apihorizonte.model.Usuario;
 import org.example.apihorizonte.repository.UsuarioRepository;
 import org.springframework.beans.factory.annotation.Value;
@@ -23,10 +25,10 @@ public class UsuarioService {
     public LoginUsuarioResponseDTO login(LoginUsuarioRequestDTO usuarioRequestDTO) {
 
         Usuario usuario = usuarioRepository.findByEmail(usuarioRequestDTO.getEmail())
-                .orElseThrow(() -> new RuntimeException("Usuário não encontrado"));
+                .orElseThrow(() -> new EntityNotFoundException("Usuário não encontrado"));
 
         if (!usuario.getSenha().equals(usuarioRequestDTO.getSenha())) {
-            throw new RuntimeException("Senha incorreta");
+            throw new IncorrectPasswordeException("Senha incorreta");
         }
 
         UsuarioResponseDTO usuarioResponseDTO =
@@ -72,18 +74,18 @@ public class UsuarioService {
     public void updateSenha(Long usuarioId, SenhaUpdateRequestDTO senhaUpdateRequestDTO) {
 
         Usuario usuario = usuarioRepository.findById(usuarioId)
-                .orElseThrow(() -> new RuntimeException("Usuário não encontrado"));
+                .orElseThrow(() -> new EntityNotFoundException("Usuário não encontrado"));
 
         if (!usuario.getSenha().equals(senhaUpdateRequestDTO.getSenhaAtual())) {
-            throw new RuntimeException("Senha atual incorreta");
+            throw new IncorrectPasswordeException("Senha atual incorreta");
         }
 
         if (senhaUpdateRequestDTO.getNovaSenha().equals(senhaPadrao)) {
-            throw new RuntimeException("A nova senha não pode ser igual à senha padrão do sistema");
+            throw new InvalidPasswordException("A nova senha não pode ser igual à senha padrão do sistema");
         }
 
         if (usuario.getSenha().equals(senhaUpdateRequestDTO.getNovaSenha())) {
-            throw new RuntimeException("A nova senha não pode ser igual à senha atual");
+            throw new InvalidPasswordException("A nova senha não pode ser igual à senha atual");
         }
 
         usuario.setSenha(senhaUpdateRequestDTO.getNovaSenha());
