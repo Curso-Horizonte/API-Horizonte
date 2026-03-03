@@ -8,11 +8,8 @@ import org.example.apihorizonte.exception.IncorrectPasswordeException;
 import org.example.apihorizonte.exception.InvalidPasswordException;
 import org.example.apihorizonte.model.Usuario;
 import org.example.apihorizonte.repository.UsuarioRepository;
-//import org.example.apihorizonte.security.JwtService;
 import org.springframework.beans.factory.annotation.Value;
-//import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
-//import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 
 import java.sql.Timestamp;
 
@@ -24,8 +21,6 @@ public class UsuarioService {
     private final ObjectMapper objectMapper;
     @Value("${senha.padrao}")
     private String senhaPadrao;
-//    final JwtService jwtService;
-
 
     public LoginUsuarioResponseDTO login(LoginUsuarioRequestDTO usuarioRequestDTO) {
 
@@ -39,12 +34,6 @@ public class UsuarioService {
         UsuarioResponseDTO usuarioResponseDTO =
                 objectMapper.convertValue(usuario, UsuarioResponseDTO.class);
 
-//        Authentication authentication =
-//                new UsernamePasswordAuthenticationToken(usuarioRequestDTO.getEmail(), null);
-//
-//        String token = jwtService.generateToken(authentication);
-
-//        return new LoginUsuarioResponseDTO(usuarioResponseDTO, usuario.getSenha().equals(senhaPadrao), token);
         return new LoginUsuarioResponseDTO(usuarioResponseDTO, usuario.getSenha().equals(senhaPadrao));
     }
 
