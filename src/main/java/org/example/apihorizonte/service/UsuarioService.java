@@ -1,13 +1,18 @@
 package org.example.apihorizonte.service;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import lombok.AllArgsConstructor;
+import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.example.apihorizonte.dto.usuario.*;
+import org.example.apihorizonte.exception.IncorrectPasswordeException;
+import org.example.apihorizonte.exception.InvalidPasswordException;
 import org.example.apihorizonte.model.Usuario;
 import org.example.apihorizonte.repository.UsuarioRepository;
+//import org.example.apihorizonte.security.JwtService;
 import org.springframework.beans.factory.annotation.Value;
+//import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
+//import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 
 import java.sql.Timestamp;
 
@@ -19,19 +24,27 @@ public class UsuarioService {
     private final ObjectMapper objectMapper;
     @Value("${senha.padrao}")
     private String senhaPadrao;
+//    final JwtService jwtService;
+
 
     public LoginUsuarioResponseDTO login(LoginUsuarioRequestDTO usuarioRequestDTO) {
 
         Usuario usuario = usuarioRepository.findByEmail(usuarioRequestDTO.getEmail())
-                .orElseThrow(() -> new RuntimeException("Usuário não encontrado"));
+                .orElseThrow(() -> new EntityNotFoundException("Usuário não encontrado"));
 
         if (!usuario.getSenha().equals(usuarioRequestDTO.getSenha())) {
-            throw new RuntimeException("Senha incorreta");
+            throw new IncorrectPasswordeException("Senha incorreta");
         }
 
         UsuarioResponseDTO usuarioResponseDTO =
                 objectMapper.convertValue(usuario, UsuarioResponseDTO.class);
 
+//        Authentication authentication =
+//                new UsernamePasswordAuthenticationToken(usuarioRequestDTO.getEmail(), null);
+//
+//        String token = jwtService.generateToken(authentication);
+
+//        return new LoginUsuarioResponseDTO(usuarioResponseDTO, usuario.getSenha().equals(senhaPadrao), token);
         return new LoginUsuarioResponseDTO(usuarioResponseDTO, usuario.getSenha().equals(senhaPadrao));
     }
 
@@ -72,18 +85,18 @@ public class UsuarioService {
     public void updateSenha(Long usuarioId, SenhaUpdateRequestDTO senhaUpdateRequestDTO) {
 
         Usuario usuario = usuarioRepository.findById(usuarioId)
-                .orElseThrow(() -> new RuntimeException("Usuário não encontrado"));
+                .orElseThrow(() -> new EntityNotFoundException("Usuário não encontrado"));
 
         if (!usuario.getSenha().equals(senhaUpdateRequestDTO.getSenhaAtual())) {
-            throw new RuntimeException("Senha atual incorreta");
+            throw new IncorrectPasswordeException("Senha atual incorreta");
         }
 
         if (senhaUpdateRequestDTO.getNovaSenha().equals(senhaPadrao)) {
-            throw new RuntimeException("A nova senha não pode ser igual à senha padrão do sistema");
+            throw new InvalidPasswordException("A nova senha não pode ser igual à senha padrão do sistema");
         }
 
         if (usuario.getSenha().equals(senhaUpdateRequestDTO.getNovaSenha())) {
-            throw new RuntimeException("A nova senha não pode ser igual à senha atual");
+            throw new InvalidPasswordException("A nova senha não pode ser igual à senha atual");
         }
 
         usuario.setSenha(senhaUpdateRequestDTO.getNovaSenha());
