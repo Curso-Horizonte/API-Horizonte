@@ -106,10 +106,10 @@ public class ObservacaoService {
         dto.setId(observacao.getId());
 
         dto.setAlunoId(observacao.getAluno().getId());
-        dto.setAlunoNome(observacao.getAluno().getNome());
+        dto.setAlunoNome(observacao.getAluno().getUsuario().getNome());
 
         dto.setProfessorId(observacao.getProfessor().getId());
-        dto.setProfessorNome(observacao.getProfessor().getNome());
+        dto.setProfessorNome(observacao.getProfessor().getUsuario().getNome());
 
         dto.setDisciplinaId(observacao.getDisciplina().getId());
         dto.setDisciplinaNome(observacao.getDisciplina().getNome());
