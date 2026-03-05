@@ -1,5 +1,6 @@
 package org.example.apihorizonte.service;
 
+import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 import org.example.apihorizonte.dto.observacao.ObservacaoRequestDTO;
@@ -36,13 +37,13 @@ public class ObservacaoService {
     public ObservacaoResponseDTO addObservacao(ObservacaoRequestDTO dto) {
 
         Aluno aluno = alunoRepository.findById(dto.getAlunoId())
-                .orElseThrow(() -> new RuntimeException("Aluno não encontrado"));
+                .orElseThrow(() -> new EntityNotFoundException("Aluno não encontrado"));
 
         Professor professor = professorRepository.findById(dto.getProfessorId())
-                .orElseThrow(() -> new RuntimeException("Professor não encontrado"));
+                .orElseThrow(() -> new EntityNotFoundException("Professor não encontrado"));
 
         Disciplina disciplina = disciplinaRepository.findById(dto.getDisciplinaId())
-                .orElseThrow(() -> new RuntimeException("Disciplina não encontrada"));
+                .orElseThrow(() -> new EntityNotFoundException("Disciplina não encontrada"));
 
         Observacao observacao = new Observacao();
         observacao.setAluno(aluno);
@@ -60,24 +61,24 @@ public class ObservacaoService {
     public ObservacaoResponseDTO updateObservacao(Long id, ObservacaoRequestDTO dto) {
 
         Observacao observacao = observacaoRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Observação não encontrada"));
+                .orElseThrow(() -> new EntityNotFoundException("Observação não encontrada"));
 
         // Atualiza relações se necessário
         if (dto.getAlunoId() != null) {
             Aluno aluno = alunoRepository.findById(dto.getAlunoId())
-                    .orElseThrow(() -> new RuntimeException("Aluno não encontrado"));
+                    .orElseThrow(() -> new EntityNotFoundException("Aluno não encontrado"));
             observacao.setAluno(aluno);
         }
 
         if (dto.getProfessorId() != null) {
             Professor professor = professorRepository.findById(dto.getProfessorId())
-                    .orElseThrow(() -> new RuntimeException("Professor não encontrado"));
+                    .orElseThrow(() -> new EntityNotFoundException("Professor não encontrado"));
             observacao.setProfessor(professor);
         }
 
         if (dto.getDisciplinaId() != null) {
             Disciplina disciplina = disciplinaRepository.findById(dto.getDisciplinaId())
-                    .orElseThrow(() -> new RuntimeException("Disciplina não encontrada"));
+                    .orElseThrow(() -> new EntityNotFoundException("Disciplina não encontrada"));
             observacao.setDisciplina(disciplina);
         }
 
@@ -94,7 +95,7 @@ public class ObservacaoService {
     public void removeObservacao(Long id) {
 
         Observacao observacao = observacaoRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Observação não encontrada"));
+                .orElseThrow(() -> new EntityNotFoundException("Observação não encontrada"));
 
         observacaoRepository.delete(observacao);
     }

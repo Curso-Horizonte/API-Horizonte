@@ -1,5 +1,6 @@
 package org.example.apihorizonte.service;
 
+import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 import org.example.apihorizonte.dto.alunoDisciplina.AlunoDisciplinaRequestDTO;
@@ -36,10 +37,10 @@ public class AlunoDisciplinaService {
             AlunoDisciplinaRequestDTO dto) {
 
         Aluno aluno = alunoRepository.findById(dto.getAlunoId())
-                .orElseThrow(() -> new RuntimeException("Aluno não encontrado"));
+                .orElseThrow(() -> new EntityNotFoundException("Aluno não encontrado"));
 
         Disciplina disciplina = disciplinaRepository.findById(dto.getDisciplinaId())
-                .orElseThrow(() -> new RuntimeException("Disciplina não encontrada"));
+                .orElseThrow(() -> new EntityNotFoundException("Disciplina não encontrada"));
 
         boolean exists = alunoDisciplinaRepository
                 .existsByAlunoIdAndDisciplinaId(
@@ -66,13 +67,13 @@ public class AlunoDisciplinaService {
             AlunoDisciplinaRequestDTO dto) {
 
         AlunoDisciplina alunoDisciplina = alunoDisciplinaRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Matrícula não encontrada"));
+                .orElseThrow(() -> new EntityNotFoundException("Matrícula não encontrada"));
 
         Aluno aluno = alunoRepository.findById(dto.getAlunoId())
-                .orElseThrow(() -> new RuntimeException("Aluno não encontrado"));
+                .orElseThrow(() -> new EntityNotFoundException("Aluno não encontrado"));
 
         Disciplina disciplina = disciplinaRepository.findById(dto.getDisciplinaId())
-                .orElseThrow(() -> new RuntimeException("Disciplina não encontrada"));
+                .orElseThrow(() -> new EntityNotFoundException("Disciplina não encontrada"));
 
         alunoDisciplina.setAluno(aluno);
         alunoDisciplina.setDisciplina(disciplina);
@@ -84,7 +85,7 @@ public class AlunoDisciplinaService {
     public void removeAlunoDisciplina(Long id) {
 
         AlunoDisciplina alunoDisciplina = alunoDisciplinaRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Aluno não encontrado"));
+                .orElseThrow(() -> new EntityNotFoundException("Aluno não encontrado"));
 
         alunoDisciplinaRepository.delete(alunoDisciplina);
     }

@@ -1,5 +1,6 @@
 package org.example.apihorizonte.service;
 
+import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 import org.example.apihorizonte.dto.nota.NotaRequestDTO;
@@ -43,11 +44,11 @@ public class NotaService {
 
         AlunoDisciplina alunoDisciplina = alunoDisciplinaRepository
                 .findById(dto.getAlunoDisciplinaId())
-                .orElseThrow(() -> new RuntimeException("Matrícula não encontrada"));
+                .orElseThrow(() -> new EntityNotFoundException("Matrícula não encontrada"));
 
         Professor professor = professorRepository
                 .findById(dto.getProfessorId())
-                .orElseThrow(() -> new RuntimeException("Professor não encontrado"));
+                .orElseThrow(() -> new EntityNotFoundException("Professor não encontrado"));
 
         Nota nota = new Nota();
         nota.setAlunoDisciplina(alunoDisciplina);
@@ -64,15 +65,15 @@ public class NotaService {
     public NotaResponseDTO updateNota(Long id, NotaRequestDTO dto) {
 
         Nota nota = notaRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Nota não encontrada"));
+                .orElseThrow(() -> new EntityNotFoundException("Nota não encontrada"));
 
         AlunoDisciplina alunoDisciplina = alunoDisciplinaRepository
                 .findById(dto.getAlunoDisciplinaId())
-                .orElseThrow(() -> new RuntimeException("Matrícula não encontrada"));
+                .orElseThrow(() -> new EntityNotFoundException("Matrícula não encontrada"));
 
         Professor professor = professorRepository
                 .findById(dto.getProfessorId())
-                .orElseThrow(() -> new RuntimeException("Professor não encontrado"));
+                .orElseThrow(() -> new EntityNotFoundException("Professor não encontrado"));
 
         nota.setAlunoDisciplina(alunoDisciplina);
         nota.setProfessor(professor);
@@ -86,7 +87,7 @@ public class NotaService {
     public void removeNota(Long id) {
 
         Nota nota = notaRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Nota não encontrada"));
+                .orElseThrow(() -> new EntityNotFoundException("Nota não encontrada"));
 
         notaRepository.delete(nota);
     }
