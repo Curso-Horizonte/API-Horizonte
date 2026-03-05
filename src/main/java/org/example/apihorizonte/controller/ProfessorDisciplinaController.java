@@ -2,8 +2,6 @@ package org.example.apihorizonte.controller;
 
 import jakarta.validation.groups.Default;
 import lombok.AllArgsConstructor;
-import org.example.apihorizonte.dto.nota.NotaRequestDTO;
-import org.example.apihorizonte.dto.nota.NotaResponseDTO;
 import org.example.apihorizonte.dto.professorDisciplina.ProfessorDisciplinaRequestDTO;
 import org.example.apihorizonte.dto.professorDisciplina.ProfessorDisciplinaResponseDTO;
 import org.example.apihorizonte.service.ProfessorDisciplinaService;
@@ -19,7 +17,7 @@ import java.util.List;
 @AllArgsConstructor
 @CrossOrigin("*")
 @RestController
-@RequestMapping("/api/aluno_disciplina")
+@RequestMapping("/api/professor_disciplina")
 public class ProfessorDisciplinaController {
     private ProfessorDisciplinaService professorDisciplinaService;
 
@@ -49,6 +47,6 @@ public class ProfessorDisciplinaController {
     @DeleteMapping("/{id}")
     public ResponseEntity<String> removeProfessorDisciplina(@PathVariable Long id) {
         professorDisciplinaService.removeProfessorDisciplina(id);
-        return ResponseEntity.ok("Nota removida com sucesso");
+        return ResponseEntity.ok("Professor removido com sucesso");
     }
 }
