@@ -9,6 +9,7 @@ import org.example.apihorizonte.exception.InvalidPasswordException;
 import org.example.apihorizonte.model.Usuario;
 import org.example.apihorizonte.repository.UsuarioRepository;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.sql.Timestamp;
@@ -21,20 +22,21 @@ public class UsuarioService {
     private final ObjectMapper objectMapper;
     @Value("${senha.padrao}")
     private String senhaPadrao;
+    private final PasswordEncoder passwordEncoder;
 
     public LoginUsuarioResponseDTO login(LoginUsuarioRequestDTO usuarioRequestDTO) {
 
         Usuario usuario = usuarioRepository.findByEmail(usuarioRequestDTO.getEmail())
                 .orElseThrow(() -> new EntityNotFoundException("Usuário não encontrado"));
 
-        if (!usuario.getSenha().equals(usuarioRequestDTO.getSenha())) {
+        if (!passwordEncoder.matches(usuarioRequestDTO.getSenha(), usuario.getSenha())) {
             throw new IncorrectPasswordeException("Senha incorreta");
         }
 
         UsuarioResponseDTO usuarioResponseDTO =
                 objectMapper.convertValue(usuario, UsuarioResponseDTO.class);
 
-        return new LoginUsuarioResponseDTO(usuarioResponseDTO, usuario.getSenha().equals(senhaPadrao));
+        return new LoginUsuarioResponseDTO(usuarioResponseDTO, passwordEncoder.matches(senhaPadrao, usuario.getSenha()));
     }
 
     public Usuario addUsuario(UsuarioRequestDTO usuarioRequestDTO, long roleId) {
@@ -44,7 +46,7 @@ public class UsuarioService {
         usuario.setSobrenome(usuarioRequestDTO.getSobrenome());
         usuario.setCpf(usuarioRequestDTO.getCpf());
         usuario.setEmail(usuarioRequestDTO.getEmail());
-        usuario.setSenha(senhaPadrao);
+        usuario.setSenha(passwordEncoder.encode(senhaPadrao));
         usuario.setRoleId(roleId);
         usuario.setStatusId(1);
         usuario.setCriadoEm(new Timestamp(System.currentTimeMillis()));
@@ -76,11 +78,11 @@ public class UsuarioService {
         Usuario usuario = usuarioRepository.findById(usuarioId)
                 .orElseThrow(() -> new EntityNotFoundException("Usuário não encontrado"));
 
-        if (!usuario.getSenha().equals(senhaUpdateRequestDTO.getSenhaAtual())) {
+        if (!passwordEncoder.matches(senhaUpdateRequestDTO.getSenhaAtual(), usuario.getSenha())) {
             throw new IncorrectPasswordeException("Senha atual incorreta");
         }
 
-        if (senhaUpdateRequestDTO.getNovaSenha().equals(senhaPadrao)) {
+        if (passwordEncoder.matches(senhaPadrao, senhaUpdateRequestDTO.getNovaSenha())) {
             throw new InvalidPasswordException("A nova senha não pode ser igual à senha padrão do sistema");
         }
 
@@ -88,7 +90,7 @@ public class UsuarioService {
             throw new InvalidPasswordException("A nova senha não pode ser igual à senha atual");
         }
 
-        usuario.setSenha(senhaUpdateRequestDTO.getNovaSenha());
+        usuario.setSenha(passwordEncoder.encode(senhaUpdateRequestDTO.getNovaSenha()));
         usuarioRepository.save(usuario);
     }
 }
