@@ -15,5 +15,5 @@ import java.util.List;
 public interface ProfessorDisciplinaRepository extends JpaRepository<ProfessorDisciplina, Long> {
     boolean existsByProfessorIdAndDisciplinaId(@NotNull(groups = OnCreate.class) @Positive Long professorId, @NotNull(groups = OnCreate.class) @Positive Long disciplinaId);
 
-    List<ProfessorDisciplina> findAllByProfessorId();
+    List<ProfessorDisciplina> findAllByProfessorId(Long professorId);
 }

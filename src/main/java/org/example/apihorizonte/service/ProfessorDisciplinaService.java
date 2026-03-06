@@ -26,7 +26,7 @@ public class ProfessorDisciplinaService {
     }
 
     public List<ProfessorDisciplinaResponseDTO> getAllDisciplinaByProfessorId(Long id) {
-        return professorDisciplinaRepository.findAllByProfessorId()
+        return professorDisciplinaRepository.findAllByProfessorId(id)
                 .stream()
                 .map(this::toResponseDTO)
                 .toList();
