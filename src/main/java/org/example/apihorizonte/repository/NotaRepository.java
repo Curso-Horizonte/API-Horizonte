@@ -3,9 +3,9 @@ package org.example.apihorizonte.repository;
 import org.example.apihorizonte.model.Nota;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
-import java.util.Collection;
 import java.util.List;
 
 @Repository
@@ -27,6 +27,9 @@ public interface NotaRepository extends JpaRepository<Nota, Long> {
     JOIN FETCH n.professor
     WHERE a.id = :alunoId
     AND d.id = :disciplinaId
-      x""")
-    List<Nota> findNotasByAlunoAndDisciplina(Long alunoId, Long disciplinaId);
+    """)
+    List<Nota> findNotasByAlunoAndDisciplina(
+            @Param("alunoId") Long alunoId,
+            @Param("disciplinaId") Long disciplinaId
+    );
 }
