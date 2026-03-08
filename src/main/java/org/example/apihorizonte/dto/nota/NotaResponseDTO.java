@@ -19,5 +19,6 @@ public class NotaResponseDTO {
     private String professorNome;
 
     private Double valor;
-    private String tipo;
+    private String descricao;
+    private int bimestre;
 }

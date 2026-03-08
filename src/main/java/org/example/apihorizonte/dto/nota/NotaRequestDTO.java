@@ -20,7 +20,12 @@ public class NotaRequestDTO {
     @DecimalMax(value = "10.0", message = "A nota não pode ser maior que 10")
     private Double valor;
 
-    @NotBlank(message = "É obrigatório informar o tipo da nota")
-    @Size(max = 20, message = "O tipo deve ter no máximo 20 caracteres")
-    private String tipo;
+    @NotBlank(message = "É obrigatório informar uma descrição da nota")
+    @Size(max = 20, message = "A descrição deve ter no máximo 20 caracteres")
+    private String descricao;
+
+    @NotNull(message = "É obrigatório informar o valor da nota")
+    @Min(value = 1, message = "O bimestre não pode ser menor que 1")
+    @Max(value = 4, message = "O bimestre não pode ser maior que 4")
+    private int bimestre;
 }
