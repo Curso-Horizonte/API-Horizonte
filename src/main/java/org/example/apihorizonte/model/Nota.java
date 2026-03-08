@@ -27,5 +27,7 @@ public class Nota {
 
     private Double valor;
 
-    private String tipo;
+    private String descricao;
+
+    private int bimestre;
 }

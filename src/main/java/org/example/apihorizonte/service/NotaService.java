@@ -54,7 +54,8 @@ public class NotaService {
         nota.setAlunoDisciplina(alunoDisciplina);
         nota.setProfessor(professor);
         nota.setValor(dto.getValor());
-        nota.setTipo(dto.getTipo());
+        nota.setDescricao(dto.getDescricao());
+        nota.setBimestre(dto.getBimestre());
 
         Nota saved = notaRepository.save(nota);
 
@@ -78,7 +79,8 @@ public class NotaService {
         nota.setAlunoDisciplina(alunoDisciplina);
         nota.setProfessor(professor);
         nota.setValor(dto.getValor());
-        nota.setTipo(dto.getTipo());
+        nota.setDescricao(dto.getDescricao());
+        nota.setBimestre(dto.getBimestre());
 
         return toResponseDTO(nota);
     }
@@ -105,7 +107,8 @@ public class NotaService {
         dto.setProfessorNome(nota.getProfessor().getUsuario().getNome());
 
         dto.setValor(nota.getValor());
-        dto.setTipo(nota.getTipo());
+        dto.setDescricao(nota.getDescricao());
+        dto.setBimestre(nota.getBimestre());
 
         return dto;
     }
