@@ -27,6 +27,11 @@ public class AlunoController implements AlunoOpenAPI {
         return alunoService.getAllAlunos();
     }
 
+    @GetMapping("/get/usuario/{usuarioId}")
+    public AlunoResponseDTO getAlunoByUsuario(@PathVariable Long usuarioId) {
+        return alunoService.getAlunoByUsuario(usuarioId);
+    }
+
     @PostMapping("/add")
     public ResponseEntity<AlunoResponseDTO> addAluno(@Validated({OnCreate.class, Default.class}) @RequestBody AlunoRequestDTO alunoRequestDTO) {
         return ResponseEntity.ok(alunoService.addAluno(alunoRequestDTO));

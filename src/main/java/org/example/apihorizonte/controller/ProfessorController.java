@@ -26,6 +26,11 @@ public class ProfessorController implements ProfessorOpenAPI {
         return professorService.getAllProfessores();
     }
 
+    @GetMapping("/get/usuario/{usuarioId}")
+    public ProfessorResponseDTO getProfessorByUsuario(@PathVariable Long usuarioId) {
+        return professorService.getProfessorByUsuario(usuarioId);
+    }
+
     @PostMapping("/add")
     public ResponseEntity<ProfessorResponseDTO> addProfessor(@Validated({OnCreate.class, Default.class}) @RequestBody ProfessorRequestDTO professorRequestDTO) {
         return ResponseEntity.ok(professorService.addProfessor(professorRequestDTO));

@@ -38,6 +38,13 @@ public class ProfessorService {
         return professorsResponseDTO;
     }
 
+    public ProfessorResponseDTO getProfessorByUsuario(Long usuarioId) {
+        Professor professor = professorRepository.findProfessorByUsuarioId(usuarioId)
+                .orElseThrow(() -> new EntityNotFoundException("Professor não encontrado"));
+
+        return objectMapper.convertValue(professor, ProfessorResponseDTO.class);
+    }
+
     public ProfessorResponseDTO addProfessor(ProfessorRequestDTO professorRequestDTO) {
 
         Usuario usuario = usuarioService.addUsuario(professorRequestDTO.getUsuario(), 2L);
