@@ -40,6 +40,13 @@ public class AlunoService {
         return alunosResponseDTO;
     }
 
+    public AlunoResponseDTO getAlunoByUsuario(Long usuarioId) {
+        Aluno aluno = alunoRepository.findAlunoByUsuarioId(usuarioId)
+                .orElseThrow(() -> new EntityNotFoundException("Aluno não encontrado"));
+
+        return objectMapper.convertValue(aluno, AlunoResponseDTO.class);
+    }
+    
     public AlunoResponseDTO addAluno(AlunoRequestDTO alunoRequestDTO) {
 
         Usuario usuario = usuarioService.addUsuario(alunoRequestDTO.getUsuario(), 3L);
