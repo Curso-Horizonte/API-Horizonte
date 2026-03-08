@@ -12,6 +12,7 @@ import java.sql.Timestamp;
 @AllArgsConstructor
 @NoArgsConstructor
 public class UsuarioResponseDTO {
+    private Long id;
     private String nome;
     private String sobrenome;
     private String email;
